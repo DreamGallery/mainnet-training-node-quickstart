@@ -1,6 +1,5 @@
 import json
 import os
-import time
 
 import requests
 import yaml
@@ -36,7 +35,7 @@ if __name__ == "__main__":
     logger.info(f"Models within the max_params: {all_training_args.keys()}")
     # download in chunks
     response = requests.get(data_url, stream=True)
-    with open("demo_data.jsonl", "wb") as f:
+    with open("data/demo_data.jsonl", "wb") as f:
         for chunk in response.iter_content(chunk_size=8192):
             f.write(chunk)
 
@@ -70,7 +69,7 @@ if __name__ == "__main__":
                     exist_ok=False,
                     repo_type="model",
                 )
-            except Exception as e:
+            except Exception:
                 logger.info(
                     f"Repo {repo_name} already exists. Will commit the new version."
                 )
